@@ -11,7 +11,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "users")
 public class User {
     @Id
-    private String id;
+    private Long id;
     private String name;
     @Indexed(unique = true)
     private String email;
@@ -19,7 +19,7 @@ public class User {
     private AccountType accountType;
 
     public User(){}
-    public User(String id, String name, String email, String password, AccountType accountType) {
+    public User(Long id, String name, String email, String password, AccountType accountType) {
         this.id = id;
         this.name = name;
         this.email = email;
