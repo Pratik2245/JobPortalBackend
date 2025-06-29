@@ -10,6 +10,8 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Component;
 
+import java.security.SecureRandom;
+
 @Component
 public class Utilities {
     private static MongoOperations mongoOperations;
@@ -28,5 +30,14 @@ public class Utilities {
         Sequence s=mongoOperations.findAndModify(query,update,options,Sequence.class);
         if(s==null) throw new JobPortalException("Unable to generate the sequence");
         return s.getSequence();
+    }
+//    generating random otp for the password resetting
+    public static String generateOtp(){
+        StringBuilder stringBuilder=new StringBuilder();
+        SecureRandom secureRandom=new SecureRandom();
+        for (int i = 0; i < 6; i++) {
+            stringBuilder.append(secureRandom.nextInt(10));
+        }
+        return stringBuilder.toString();
     }
 }
