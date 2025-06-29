@@ -7,6 +7,7 @@ import com.jobportal.Job.Portal.entity.User;
 import com.jobportal.Job.Portal.exception.JobPortalException;
 import com.jobportal.Job.Portal.repository.OtpRepository;
 import com.jobportal.Job.Portal.repository.UserRepository;
+import com.jobportal.Job.Portal.utility.OtpData;
 import com.jobportal.Job.Portal.utility.Utilities;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
@@ -60,7 +61,7 @@ public class UserServiceImpl implements  UserService{
 //        Insert or Update (Upsert) .save method
         otpRepository.save(otp);
 //        setting html is present in the above text true or false
-        helper.setText("Your Code is:"+generated,false);
+        helper.setText(OtpData.getFormattedOtp(generated),true);
         mailSender.send(mimeMessage);
         return true;
 
