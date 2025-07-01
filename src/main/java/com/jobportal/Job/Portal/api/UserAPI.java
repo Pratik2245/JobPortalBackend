@@ -7,6 +7,8 @@ import com.jobportal.Job.Portal.exception.JobPortalException;
 import com.jobportal.Job.Portal.service.UserService;
 import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,8 +32,18 @@ public class UserAPI {
         return new ResponseEntity<>(userService.loginUser(loginDTO),HttpStatus.OK);
     }
     @PostMapping(value = "/sendOtp/{email}")
-    public ResponseEntity<?> sendOtp(@PathVariable String email) throws JobPortalException, MessagingException {
+    public ResponseEntity<?> sendOtp(@PathVariable  @Email(message = "Invalid email format") String email) throws JobPortalException, MessagingException {
         boolean b=userService.sendOtp(email);
         return new ResponseEntity<>(new ResponseDTO("OTP send successfully"),HttpStatus.OK);
+    }
+    @GetMapping(value = "/verifyOtp/{email}/{otp}")
+    public ResponseEntity<?> verifyOtp(@PathVariable  @Email(message = "Invalid email format") String email, @PathVariable @Pattern(regexp = "\\d{6}", message = "OTP must be 6 digits") String otp) throws JobPortalException {
+        boolean b=userService.verifyOtp(email,otp);
+        return new ResponseEntity<>(new ResponseDTO("OTP Verified successfully"),HttpStatus.OK);
+    }
+    //changing the password
+    @PostMapping(value = "/changePassword")
+    public ResponseEntity<?> changePassword(@RequestBody LoginDTO loginDTO) throws JobPortalException {
+        return new ResponseEntity<>(userService.changePassword(loginDTO),HttpStatus.OK);
     }
 }
