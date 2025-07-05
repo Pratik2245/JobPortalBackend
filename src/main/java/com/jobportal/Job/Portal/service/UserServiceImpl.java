@@ -55,7 +55,7 @@ public class UserServiceImpl implements  UserService{
     }
 
     @Override
-    public boolean sendOtp(String email) throws JobPortalException, MessagingException {
+    public void sendOtp(String email) throws JobPortalException, MessagingException {
         User user=userRepository.findByEmail(email).orElseThrow(()-> new JobPortalException("USER_NOT_FOUND"));
 //        MimeMessage is used when you want to send rich or complex email content — like HTML, attachments, inline images, or multipart content — instead of just plain text.
         MimeMessage mimeMessage=mailSender.createMimeMessage();
@@ -69,7 +69,6 @@ public class UserServiceImpl implements  UserService{
 //        setting html is present in the above text true or false
         helper.setText(OtpData.getFormattedOtp(generated,user.getName()),true);
         mailSender.send(mimeMessage);
-        return true;
 
     }
 

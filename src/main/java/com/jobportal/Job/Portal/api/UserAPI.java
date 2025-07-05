@@ -33,8 +33,8 @@ public class UserAPI {
     }
     @PostMapping(value = "/sendOtp/{email}")
     public ResponseEntity<?> sendOtp(@PathVariable  @Email(message = "Invalid email format") String email) throws JobPortalException, MessagingException {
-        boolean b=userService.sendOtp(email);
-        return new ResponseEntity<>(new ResponseDTO("OTP send successfully"),HttpStatus.OK);
+        userService.sendOtp(email); // Don't wait for result
+        return new ResponseEntity<>(new ResponseDTO("OTP sending initiated"), HttpStatus.OK);
     }
     @GetMapping(value = "/verifyOtp/{email}/{otp}")
     public ResponseEntity<?> verifyOtp(@PathVariable  @Email(message = "Invalid email format") String email, @PathVariable @Pattern(regexp = "\\d{6}", message = "OTP must be 6 digits") String otp) throws JobPortalException {
