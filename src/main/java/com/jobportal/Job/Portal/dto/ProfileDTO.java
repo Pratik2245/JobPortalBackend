@@ -11,8 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProfileDTO {
-    @Id
-    private Long Id;
+    private Long id;
     private String email;
     private String jobTitle;
     private String company;
@@ -22,6 +21,6 @@ public class ProfileDTO {
     private List<Experience> experiences;
     private List<Certification> certifications;
     public Profile toEntity(){
-        return new Profile(this.Id,this.email,this.jobTitle,this.company,this.location,this.about,this.skills,this.experiences,this.certifications);
+        return new Profile(this.id,this.email,this.jobTitle,this.company,this.location,this.about,this.skills,this.experiences,this.certifications);
     }
 }

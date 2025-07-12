@@ -19,18 +19,20 @@ public class UserDTO {
             message = "{user.password.invalid}")
     private String password;
     private AccountType accountType;
+    private Long profileId;
 
     public UserDTO(){
 
     }
-    public UserDTO(Long id, String name, String email, String password, AccountType accountType) {
+    public UserDTO(Long id, String name, String email, String password, AccountType accountType,Long profileId) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
         this.accountType = accountType;
+        this.profileId=profileId;
     }
     public User toEntity(){
-        return new User(this.id,this.name,this.email,this.password,this.accountType);
+        return new User(this.id,this.name,this.email,this.password,this.accountType,this.profileId);
     }
 }

@@ -1,0 +1,26 @@
+package com.jobportal.Job.Portal.api;
+
+import com.jobportal.Job.Portal.dto.ProfileDTO;
+import com.jobportal.Job.Portal.exception.JobPortalException;
+import com.jobportal.Job.Portal.service.ProfileService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@CrossOrigin
+@Validated
+@RequestMapping("/profile")
+public class ProfileApi {
+    @Autowired
+    private  ProfileService profileService;
+
+
+
+    @GetMapping("/get/{id}")
+    public ResponseEntity<ProfileDTO> getProfile(@PathVariable Long id) throws JobPortalException {
+        return new ResponseEntity<>(profileService.getProfileId(id), HttpStatus.OK);
+    }
+}
