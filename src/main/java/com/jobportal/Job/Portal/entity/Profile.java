@@ -17,6 +17,7 @@ import java.util.List;
 public class Profile {
     @Id
     private Long id;
+    private String name;
     private String email;
     private String jobTitle;
     private String company;
@@ -26,7 +27,7 @@ public class Profile {
     private List<Experience> experiences;
     private List<Certification> certifications;
     public ProfileDTO toDTO(){
-        return new ProfileDTO(this.id,this.email,this.jobTitle,this.company,this.location,this.about,this.skills,this.experiences,this.certifications);
+        return new ProfileDTO(this.id,this.email,this.email,this.jobTitle,this.company,this.location,this.about,this.skills,this.experiences,this.certifications);
     }
 }
 

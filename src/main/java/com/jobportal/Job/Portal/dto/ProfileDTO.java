@@ -4,7 +4,6 @@ import com.jobportal.Job.Portal.entity.Profile;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
 
 import java.util.List;
 @Data
@@ -12,6 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 public class ProfileDTO {
     private Long id;
+    private String name;
     private String email;
     private String jobTitle;
     private String company;
@@ -21,6 +21,6 @@ public class ProfileDTO {
     private List<Experience> experiences;
     private List<Certification> certifications;
     public Profile toEntity(){
-        return new Profile(this.id,this.email,this.jobTitle,this.company,this.location,this.about,this.skills,this.experiences,this.certifications);
+        return new Profile(this.id,this.name,this.email,this.jobTitle,this.company,this.location,this.about,this.skills,this.experiences,this.certifications);
     }
 }

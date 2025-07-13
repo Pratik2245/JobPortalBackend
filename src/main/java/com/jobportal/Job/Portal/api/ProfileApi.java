@@ -16,11 +16,13 @@ import org.springframework.web.bind.annotation.*;
 public class ProfileApi {
     @Autowired
     private  ProfileService profileService;
-
-
-
     @GetMapping("/get/{id}")
     public ResponseEntity<ProfileDTO> getProfile(@PathVariable Long id) throws JobPortalException {
         return new ResponseEntity<>(profileService.getProfileId(id), HttpStatus.OK);
     }
+    @PostMapping("/update")
+    public ResponseEntity<ProfileDTO> updateProfile(@RequestBody ProfileDTO profileDTO) throws JobPortalException {
+        return  new ResponseEntity<>(profileService.updateProfile(profileDTO),HttpStatus.OK);
+    }
+
 }

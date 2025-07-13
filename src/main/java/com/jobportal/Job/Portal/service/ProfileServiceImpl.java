@@ -27,8 +27,13 @@ public class ProfileServiceImpl implements ProfileService{
 
     @Override
     public ProfileDTO getProfileId(Long id) throws  JobPortalException {
-        ProfileDTO profileDTO= profileRepository.findById(id).orElseThrow(()->new JobPortalException("PROFILE NOT FOUND")).toDTO();
-        System.out.println(profileDTO);
+        return profileRepository.findById(id).orElseThrow(()->new JobPortalException("PROFILE NOT FOUND")).toDTO();
+    }
+
+    @Override
+    public ProfileDTO updateProfile(ProfileDTO profileDTO) throws JobPortalException {
+        profileRepository.findById(profileDTO.getId()).orElseThrow(()->new JobPortalException("PROFILE NOT FOUND"));
+        profileRepository.save(profileDTO.toEntity());
         return profileDTO;
     }
 }
