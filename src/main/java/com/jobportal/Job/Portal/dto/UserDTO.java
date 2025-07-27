@@ -35,4 +35,5 @@ public class UserDTO {
     public User toEntity(){
         return new User(this.id,this.name,this.email,this.password,this.accountType,this.profileId);
     }
+    
 }

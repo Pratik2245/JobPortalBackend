@@ -14,6 +14,7 @@ public class ProfileDTO {
     private String name;
     private String email;
     private String jobTitle;
+//    private byte[] image;
     private String company;
     private String location;
     private String about;
