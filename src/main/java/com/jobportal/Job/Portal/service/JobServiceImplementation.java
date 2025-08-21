@@ -1,7 +1,5 @@
 package com.jobportal.Job.Portal.service;
-import com.jobportal.Job.Portal.dto.ApplicantsDTO;
-import com.jobportal.Job.Portal.dto.ApplicationStatus;
-import com.jobportal.Job.Portal.dto.JobDTO;
+import com.jobportal.Job.Portal.dto.*;
 import com.jobportal.Job.Portal.entity.Applicants;
 import com.jobportal.Job.Portal.entity.Job;
 import com.jobportal.Job.Portal.exception.JobPortalException;
@@ -49,5 +47,27 @@ public class JobServiceImplementation implements  JobService {
        applicants.add(applicantsDTO.toEntity());
        job.setApplicants(applicants);
        jobRepository.save(job);
+    }
+
+    @Override
+    public List<JobDTO> getJobsPostedBy(Long id) throws JobPortalException {
+        return jobRepository.findByPostedBy(id).stream().map(x->x.toDto()).toList();
+    }
+
+    @Override
+    public void changeApplicationStatus(Application application) throws JobPortalException {
+        Job job =jobRepository.findById(application.getId()).orElseThrow(()->new JobPortalException("JOB_NOT_FOUND"));
+        List<Applicants> list=job.getApplicants().stream().map((x)->{
+            if(application.getApplicantId()==x.getApplicantId()){
+                x.setApplicationStatus(application.getApplicationStatus());
+                if(application.getApplicationStatus().equals(ApplicationStatus.INTERVIEWING)){
+                    x.setInterviewTime(application.getInterViewTime());
+                }
+            }
+            return x;
+        }).toList();
+    job.setApplicants(list);
+    jobRepository.save(job);
+
     }
 }

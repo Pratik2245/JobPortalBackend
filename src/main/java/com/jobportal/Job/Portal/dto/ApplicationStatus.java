@@ -1,5 +1,5 @@
 package com.jobportal.Job.Portal.dto;
 
 public enum ApplicationStatus {
-    APPLIED,INTERVIEWING,OFFERED
+    APPLIED,INTERVIEWING,OFFERED,REJECT
 }

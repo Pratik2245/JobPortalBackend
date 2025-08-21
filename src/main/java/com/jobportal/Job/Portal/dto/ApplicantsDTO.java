@@ -21,6 +21,7 @@ public class ApplicantsDTO {
     private Long applicantId;
     private LocalDateTime timeStramp;
     private ApplicationStatus applicationStatus;
+    private LocalDateTime interviewTime;
     public Applicants toEntity(){
         return new Applicants(
                 this.name,
@@ -31,7 +32,8 @@ public class ApplicantsDTO {
                 this.website,
                 this.applicantId,
                 this.timeStramp,
-                this.applicationStatus
+                this.applicationStatus,
+                this.interviewTime
         );
     }
 }

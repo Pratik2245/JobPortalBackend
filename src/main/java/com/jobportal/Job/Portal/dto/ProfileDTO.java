@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 @Data
 @AllArgsConstructor
@@ -21,7 +22,8 @@ public class ProfileDTO {
     private List<String> skills;
     private List<Experience> experiences;
     private List<Certification> certifications;
+    private List<Long> savedJobs;
     public Profile toEntity(){
-        return new Profile(this.id,this.name,this.email,this.jobTitle,this.company,this.location,this.about,this.skills,this.experiences,this.certifications);
+        return new Profile(this.id,this.name,this.email,this.jobTitle,this.company,this.location,this.about,this.skills,this.experiences,this.certifications,this.savedJobs);
     }
 }

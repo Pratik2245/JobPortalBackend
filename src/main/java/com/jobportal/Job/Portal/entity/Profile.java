@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
 import java.util.List;
 @Data
 @AllArgsConstructor
@@ -26,8 +27,9 @@ public class Profile {
     private List<String> skills;
     private List<Experience> experiences;
     private List<Certification> certifications;
+    private List<Long> savedJobs;
     public ProfileDTO toDTO(){
-        return new ProfileDTO(this.id,this.email,this.email,this.jobTitle,this.company,this.location,this.about,this.skills,this.experiences,this.certifications);
+        return new ProfileDTO(this.id,this.name,this.email,this.jobTitle,this.company,this.location,this.about,this.skills,this.experiences,this.certifications,this.savedJobs);
     }
 }
 

@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.security.PrivateKey;
 import java.time.LocalDateTime;
 import java.util.Base64;
 
@@ -22,6 +23,7 @@ public class Applicants {
     private Long applicantId;
     private LocalDateTime timeStramp;
     private ApplicationStatus applicationStatus;
+    private LocalDateTime interviewTime;
     public ApplicantsDTO toDTO(){
         return new ApplicantsDTO(
                 this.name,
@@ -32,7 +34,8 @@ public class Applicants {
                 this.website,
                 this.applicantId,
                 this.timeStramp,
-                this.applicationStatus
+                this.applicationStatus,
+                this.interviewTime
         );
     }
 }
