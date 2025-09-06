@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class ProfileServiceImpl implements ProfileService{
     @Autowired
@@ -28,6 +30,11 @@ public class ProfileServiceImpl implements ProfileService{
     @Override
     public ProfileDTO getProfileId(Long id) throws  JobPortalException {
         return profileRepository.findById(id).orElseThrow(()->new JobPortalException("PROFILE_NOT_FOUND")).toDTO();
+    }
+
+    @Override
+    public List<ProfileDTO> getAllProfiles() {
+        return profileRepository.findAll().stream().map((x)->x.toDTO()).toList();
     }
 
     @Override
