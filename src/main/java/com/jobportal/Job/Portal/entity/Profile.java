@@ -24,12 +24,13 @@ public class Profile {
     private String company;
     private String location;
     private String about;
+    private Long totalExp;
     private List<String> skills;
     private List<Experience> experiences;
     private List<Certification> certifications;
     private List<Long> savedJobs;
     public ProfileDTO toDTO(){
-        return new ProfileDTO(this.id,this.name,this.email,this.jobTitle,this.company,this.location,this.about,this.skills,this.experiences,this.certifications,this.savedJobs);
+        return new ProfileDTO(this.id,this.name,this.email,this.jobTitle,this.company,this.location,this.about,this.totalExp,this.skills,this.experiences,this.certifications,this.savedJobs);
     }
 }
 
