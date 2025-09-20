@@ -1,8 +1,10 @@
 package com.jobportal.Job.Portal.service;
 
 import com.jobportal.Job.Portal.dto.LoginDTO;
+import com.jobportal.Job.Portal.dto.NotificationDTO;
 import com.jobportal.Job.Portal.dto.ResponseDTO;
 import com.jobportal.Job.Portal.dto.UserDTO;
+import com.jobportal.Job.Portal.entity.Notification;
 import com.jobportal.Job.Portal.entity.Otp;
 import com.jobportal.Job.Portal.entity.User;
 import com.jobportal.Job.Portal.exception.JobPortalException;
@@ -38,6 +40,8 @@ public class UserServiceImpl implements  UserService{
     JavaMailSender mailSender;
     @Autowired
     PasswordEncoder encoder;
+    @Autowired
+    NotificationService notificationService;
     @Override
     public UserDTO registerUser(UserDTO userDTO) throws JobPortalException {
         Optional<User> optionalUser=userRepository.findByEmail(userDTO.getEmail());
@@ -87,8 +91,20 @@ public class UserServiceImpl implements  UserService{
         User user = userRepository.findByEmail(loginDTO.getEmail()).orElseThrow(() -> new JobPortalException("USER_NOT_FOUND"));
         user.setPassword(encoder.encode(loginDTO.getPassword()));
         userRepository.save(user);
+        NotificationDTO noti=new NotificationDTO();
+        noti.setUserId(user.getId());
+        noti.setMessage("Password Changed Successfully");
+        noti.setAction("Password Reset");
+        notificationService.sendNotification(noti);
+
         return new ResponseDTO("Password Changed Successfully");
     }
+
+    @Override
+    public UserDTO getUserByEmail(String email) throws JobPortalException {
+        return userRepository.findByEmail(email).orElseThrow(()-> new JobPortalException("USER_NOT_FOUND")).toDTO();
+    }
+
     @Scheduled(fixedRate = 60000)
     public void deleteExpireOtp(){
         LocalDateTime localDateTime=LocalDateTime.now().minusMinutes(5);

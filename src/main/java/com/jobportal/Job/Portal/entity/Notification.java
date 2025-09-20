@@ -1,5 +1,7 @@
 package com.jobportal.Job.Portal.entity;
 
+import com.jobportal.Job.Portal.dto.NotificationDTO;
+import com.jobportal.Job.Portal.dto.NotificationStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,5 +19,9 @@ public class Notification {
     private String message;
     private String action;
     private String route;
+    private NotificationStatus status;
     private LocalDateTime timeStamp;
+    public NotificationDTO toDTO(){
+        return new NotificationDTO(this.id,this.userId,this.message,this.action,this.route,this.status,this.timeStamp);
+    }
 }
