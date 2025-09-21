@@ -28,8 +28,9 @@ public class SecurityConfig {
 //        httpSecurity.authorizeHttpRequests((req)->req.requestMatchers("/**").permitAll().anyRequest().authenticated());
 //        httpSecurity.csrf(AbstractHttpConfigurer::disable);
 //        return httpSecurity.build();
-        httpSecurity.
-                csrf(AbstractHttpConfigurer::disable)
+        httpSecurity
+        .cors(cors -> {})
+                .csrf(AbstractHttpConfigurer::disable)
                 .authorizeRequests()
                 .requestMatchers("/auth/login","/users/register","/users/sendOtp/**","/users/verifyOtp/**").permitAll()
                 .anyRequest().authenticated()

@@ -13,9 +13,12 @@ import java.util.Collection;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CustomUserDetails implements UserDetails {
+    public static final long serialVersionUID=1L;
     private Long id;
     private String username;
+    private String name;
     private String password;
+    private Long profileId;
     private AccountType accountType;
     private Collection<?extends GrantedAuthority> authorities;
 }
