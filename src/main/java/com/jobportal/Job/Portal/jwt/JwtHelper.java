@@ -1,6 +1,7 @@
 package com.jobportal.Job.Portal.jwt;
 
 import io.jsonwebtoken.*;
+import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -14,9 +15,13 @@ import java.util.function.Function;
 @Component
 public class JwtHelper {
 
-    private final Key SECRET =Keys.secretKeyFor(SignatureAlgorithm.HS256);
-    private final long JWT_EXPIRATION = 3600000; // 1 hour
+    private final String SECRET ="82374591827364591827364591827364591827364591827364591827364591827364";
+    private final long JWT_EXPIRATION = 604800000; // 7 Days
 
+    private Key getSigningKey() {
+        byte[] keyBytes = Decoders.BASE64.decode(SECRET);
+        return Keys.hmacShaKeyFor(keyBytes);
+    }
     // get username directly
     public String getUsernameFromToken(String token) {
         return getClaimFromToken(token,Claims::getSubject);
@@ -35,7 +40,7 @@ public class JwtHelper {
 
     private Claims getAllClaimsFromToken(String token){
         return Jwts.parserBuilder()
-                .setSigningKey(SECRET)
+                .setSigningKey(getSigningKey())
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
@@ -59,7 +64,7 @@ public class JwtHelper {
                 .setSubject(subject)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis()+JWT_EXPIRATION))
-                .signWith(SECRET)
+                .signWith(getSigningKey())
                 .compact();
     }
     public Boolean validateToken(String token,String username){

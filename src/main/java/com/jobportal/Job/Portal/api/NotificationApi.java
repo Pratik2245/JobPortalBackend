@@ -2,6 +2,7 @@ package com.jobportal.Job.Portal.api;
 
 import com.jobportal.Job.Portal.dto.NotificationDTO;
 import com.jobportal.Job.Portal.entity.Notification;
+import com.jobportal.Job.Portal.exception.JobPortalException;
 import com.jobportal.Job.Portal.service.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,4 +23,10 @@ public class NotificationApi {
     public ResponseEntity<List<Notification>> getNotifications(@PathVariable Long userId){
         return new ResponseEntity<>(notificationService.getUnReadNotifications(userId), HttpStatus.OK);
     }
+    @PutMapping("/read/{notificationId}")
+    public ResponseEntity<Void> markAsRead(@PathVariable Long notificationId) throws JobPortalException {
+        notificationService.markNotificationAsRead(notificationId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 }

@@ -10,4 +10,5 @@ import java.util.List;
 public interface NotificationService {
     public void sendNotification(NotificationDTO notification) throws JobPortalException;
     public List<Notification> getUnReadNotifications(Long userId);
+    void markNotificationAsRead(Long notificationId) throws JobPortalException;
 }

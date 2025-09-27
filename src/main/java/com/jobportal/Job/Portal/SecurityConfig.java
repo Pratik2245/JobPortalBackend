@@ -32,7 +32,7 @@ public class SecurityConfig {
         .cors(cors -> {})
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeRequests()
-                .requestMatchers("/auth/login","/users/register","/users/sendOtp/**","/users/verifyOtp/**").permitAll()
+                .requestMatchers("/auth/login","/users/register","/users/sendOtp/**","/users/verifyOtp/**","users/changePassword/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling(ex->ex.authenticationEntryPoint(point))

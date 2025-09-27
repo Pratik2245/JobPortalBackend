@@ -14,7 +14,8 @@ import java.util.List;
 
 @Service("jobService")
 public class JobServiceImplementation implements  JobService {
-
+     @Autowired
+     NotificationService notificationService;
     @Autowired
     JobRepository jobRepository;
     @Override
@@ -22,6 +23,16 @@ public class JobServiceImplementation implements  JobService {
         if(jobDTO.getId() == null || jobDTO.getId() == 0){
             jobDTO.setPostTime(LocalDateTime.now());
             jobDTO.setId(Utilities.generateSequence("jobs"));
+            NotificationDTO notificationDTO=new NotificationDTO();
+            notificationDTO.setAction("Job Posted Successfully");
+            notificationDTO.setMessage("Job Posted Successfully for role: "+jobDTO.getJobTitle()+" at "+jobDTO.getCompany());
+            notificationDTO.setUserId(jobDTO.getPostedBy());
+            notificationDTO.setRoute("/posted-jobs/"+jobDTO.getId());
+            try {
+                notificationService.sendNotification(notificationDTO);
+            } catch (JobPortalException e) {
+                throw new RuntimeException(e);
+            }
         }else{
            Job job=jobRepository.findById(jobDTO.getId()).orElseThrow(()->new JobPortalException("JOB_NOT_FOUND"));
            if(job.getJobStatus().equals(JobStatus.DRAFT) || jobDTO.getJobStatus().equals(JobStatus.CLOSED)){
@@ -70,6 +81,16 @@ public class JobServiceImplementation implements  JobService {
                 x.setApplicationStatus(application.getApplicationStatus());
                 if(application.getApplicationStatus().equals(ApplicationStatus.INTERVIEWING)){
                     x.setInterviewTime(application.getInterViewTime());
+                    NotificationDTO notificationDTO=new NotificationDTO();
+                    notificationDTO.setAction("Interview Scheduled");
+                    notificationDTO.setMessage("Interview schedule for job id"+application.getId());
+                    notificationDTO.setUserId(application.getApplicantId());
+                    notificationDTO.setRoute("/job-history");
+                    try {
+                        notificationService.sendNotification(notificationDTO);
+                    } catch (JobPortalException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
             }
             return x;
