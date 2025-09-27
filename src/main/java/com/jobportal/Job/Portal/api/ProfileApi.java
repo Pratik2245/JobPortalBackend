@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "https://jobportalbackendapp1.onrender.com")
+@CrossOrigin(origins = "*")
 @Validated
 @RequestMapping("/profile")
 public class ProfileApi {

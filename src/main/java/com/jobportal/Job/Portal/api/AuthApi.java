@@ -13,7 +13,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin(origins = "https://jobportalbackendapp1.onrender.com")
+@CrossOrigin(origins = "*")
 @RequestMapping("/auth")
 public class AuthApi {
   @Autowired

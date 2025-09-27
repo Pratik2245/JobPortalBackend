@@ -16,7 +16,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin(origins = "https://jobportalbackendapp1.onrender.com")
+@CrossOrigin(origins = "*")
 @Validated
 @RequestMapping("/users")
 public class UserAPI {
